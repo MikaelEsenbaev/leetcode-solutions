@@ -10,32 +10,36 @@
  * }
  */
 
-public class Solution
+public class SolutionAddTwoNumbers
 {
     public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
     {
-        ListNode result = new ListNode();
+        ListNode result = new ListNode(0); 
         ListNode current = result;
-        int carryOver = 0;
-        while (l1 != null)
+        int carry = 0;
+
+        while (l1 != null || l2 != null || carry != 0)
         {
-            int addition = carryOver + l1.val + l2.val;
-            carryOver = 0;
-            if (addition > 9)
+            int sum = carry;
+
+            if (l1 != null)
             {
-                addition = addition - 10;
-                carryOver = 1;
+                sum += l1.val;
+                l1 = l1.next;
             }
 
+            if (l2 != null)
+            {
+                sum += l2.val;
+                l2 = l2.next;
+            }
 
-
-            current.val = addition;
+            carry = sum / 10;
+            current.next = new ListNode(sum % 10);
             current = current.next;
-            l1 = l1.next;
-            l2 = l2.next;
         }
 
-        return result;
-
+        return result.next; 
     }
 }
+
